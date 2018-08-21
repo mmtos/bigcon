@@ -6,7 +6,8 @@ data <- read.csv("./missForest_imp_data.csv")
 ###### 1. Chararter ######
 
 ### 1) 평균소비성향(Average Propensity to Consume, APC) : 소비(TOT_SOBI) / 소득(TOT_SOBI + M_TOT_SAVING)
-### 2-1) 위험감수(Risk taking)성향 : 월 투자금(펀드/주식)(M_FUND_STOCK) / 월저축액(M_TOT_SAVING)
+### 2) 위험감수(Risk taking)성향 
+### 2-1) 월 투자금(펀드/주식)(M_FUND_STOCK) / 월저축액(M_TOT_SAVING)
 ### 2-2) 금융상품잔액(TOT_FUND + TOT_ELS_ETE) / 금융자산(ASS_FIN)
 
 data2 <- data %>% mutate(APC = TOT_SOBI/(TOT_SOBI+M_TOT_SAVING))
