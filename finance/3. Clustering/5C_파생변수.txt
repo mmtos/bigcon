@@ -1,0 +1,23 @@
+5C of Credit에 따른 파생변수
+
+1.	Chararter
+
+1)	평균소비성향 - 소비(TOT_SOBI) / 소득(TOT_SOBI + M_TOT_SAVING)
+2)	위험감수(risk taking)성향 - 월 투자금(펀드/주식)(M_FUND_STOCK) / 월저축액(M_TOT_SAVING) - 금융상품잔액(TOT_FUND + TOT_ELS_ETE) / 금융자산(ASS_FIN)
+
+
+2.	Capacity
+
+1)	DTI  - 총 대출액(TOT_DEBT) / 총 소득(TOT_SOBI + M_TOT_SAVING)
+
+
+3.	Capital
+
+1)	자기 자본 비율  - 총 자산(TOT_ASSET) - 부채(TOT_DEBT) / 총 자산(TOT_ASSET)
+
+
+4.	Condition
+
+1)	연령(AGE_GBN)
+2)	소득 분위(INCOME_GBN)
+3)	맞벌이 여부(DOUBLE_IN)
