@@ -18,7 +18,7 @@ nrow(sqldf("select M_RT_INVEST from data2 where M_RT_INVEST != 0"))/nrow(data2) 
 data2 <- data2 %>% mutate(TOT_RT_INVEST = (TOT_FUND + TOT_ELS_ETE)/ASS_FIN)
 
 
-###### 2.	Capacity ######
+###### 2. Capacity ######
 
 ### 1) DTI : 총 대출액(TOT_DEBT) / 총 소득(TOT_SOBI + M_TOT_SAVING)
 
@@ -26,7 +26,7 @@ data2 <- data2 %>% mutate(DTI = TOT_DEBT/(TOT_SOBI + M_TOT_SAVING))
 nrow(sqldf("select DTI from data2 where DTI != 0"))/nrow(data2) #58% 값 존재
 
 
-###### 3.	Capital ######
+###### 3. Capital ######
 
 ### 1) 자기 자본 비율 : 총 자산(TOT_ASSET) - 부채(TOT_DEBT) / 총 자산(TOT_ASSET)
 
