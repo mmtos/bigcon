@@ -2,6 +2,7 @@ factor의 level이 다르면 predict를 할 수 없다(numchild, marry_y)
 
 1만7천개 
 	 MARRY_Y : 1, 2	 	 	 DOUBLE_IN : 1, 2, null(->3)		NUMCHILD : 1, 2, 3, null(->0, 4)
+	 CHUNG_Y : 5, null(->0)		 TOT_CHUNG : 0 ~ ..., null(->0)
 14만개  
 	 MARRY_Y : 1, 2, null(->1,2)	 DOUBLE_IN : 1, 2, 3			NUMCHILD : 0, 1, 2, 3, 4
 
