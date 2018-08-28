@@ -8,27 +8,25 @@
 
 missForest.R
 
-### DATA 테이블 처리 ###
-#만개짜리 데이터 불러오기
-data<-read.csv("./data2.csv")
+############ missForest ############
 
-#원래쓰던 데이터 이름이 sh여서 sh로바꿈
-sh <- data 
-
-
-################## missForest ########################
 library(missForest)
+survey2 <- read.csv("./survey2.csv")
 
 #impute missing values, using all parameters as default values
-sh.missforest <- missForest(sh)
+survey2.missforest <- missForest(survey2)
 
 #check imputed values
-sh.missforest$ximp
+survey2.missforest$ximp
 
 #check imputation error
 #NRMAS: normalized mean squared error
-sh.missforest$OOBerror
+
+survey2.missforest$OOBerror
 
 #결측치 대체한 테이블 저장
-sh_mf_imp <- sh.missforest$ximp
-write.csv(sh_mf_imp, "missForest_imp_data.csv", row.names=FALSE)
+survey_imp <- survey2.missforest$ximp
+write.csv(survey_imp, "survey_imp.csv", row.names=FALSE)
+
+data <- read.csv("missForest_imp_data.csv")
+View(data)
