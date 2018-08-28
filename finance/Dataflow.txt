@@ -1,0 +1,33 @@
+1단계
+** CSVFile_날짜.csv(1만개)  :  survey.csv
+Level 맞춰주기 : MARRY_Y, NUMCHILD, DOUBLE_IN 
+일부 결측치 전처리 : CHUNG_Y, M_CHUNG, TOT_CHUNG
+⟶ survey2.csv
+
+** 1_DataSet.csv(14만개) : total.csv
+Level 맞춰주기 : MARRY_Y, NUMCHILD, DOUBLE_IN
+⟶ total2.csv
+
+
+2단계
+** survey2.csv
+missForest
+⟶ survey_imp.csv
+
+
+3단계
+** survey_imp.csv
+그룹화(변수명; temp) : 기본정보로 mean 값
+병합(merge) : total2.csv + 그룹화한 데이터(temp)
+⟶ total_sparse.csv
+
+
+4단계
+** total_sparse.csv
+Matrix Factorization
+⟶ total_full.csv
+
+
+5단계
+** total_full.csv
+1. 병합(cbind) : total[1:9] + total_full[10:]
