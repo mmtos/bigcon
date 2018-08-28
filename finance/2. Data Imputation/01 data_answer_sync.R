@@ -1,29 +1,30 @@
-getwd()
-.libPaths('/home/ubuntu/R/x86_64-pc-linux-gnu-library/3.2')
+############ Preprocessing Missing Value ############
+######1. load survey data
+survey <- read.csv("./survey.csv")
 
-setwd("/home/Shb1101/big")
-data <- read.csv("./CSVFile_2018-08-07T17_01_42.csv")
+#level sync with total
+survey[is.na(survey[,'DOUBLE_IN'])==TRUE,'DOUBLE_IN'] <-3
+survey[(is.na(survey[,'NUMCHILD'])==TRUE) & (survey[,'DOUBLE_IN']==3),'NUMCHILD'] <-4
+survey[(is.na(survey[,'NUMCHILD'])==TRUE) & (survey[,'DOUBLE_IN']!=3),'NUMCHILD'] <-0
+
+#preprocessing before MissForest
+survey[(is.na(survey[,'CHUNG_Y'])==TRUE),'TOT_CHUNG'] <-0
+survey[(is.na(survey[,'CHUNG_Y'])==TRUE) & (survey[,'TOT_CHUNG']==0),'CHUNG_Y'] <-0
+survey[(is.na(survey[,'RETIRE_NEED'])==TRUE) & (survey[,'AGE_GBN']==2),'RETIRE_NEED'] <-0
+survey[(is.na(survey[,'RETIRE_NEED'])==TRUE) & (survey[,'AGE_GBN']==3),'RETIRE_NEED'] <-0
+
+#save
+write.csv(survey,file="survey2.csv",row.names = FALSE)
 
 
-######1. 고객기본정보 NULL값 변환######
-#(data 테이블)
-data2 <- data
-data2[is.na(data2[,'DOUBLE_IN'])==TRUE, 'DOUBLE_IN'] <- 3
-data2[(is.na(data2[,'NUMCHILD'])==TRUE) & (data2[,'DOUBLE_IN']==3), 'NUMCHILD'] <- 4
-data2[(is.na(data2[,'NUMCHILD'])==TRUE) & (data2[,'DOUBLE_IN']!=3), 'NUMCHILD'] <- 0
+######2. load answer sheet
+total <- read.csv("./total.csv")
 
-summary(data)
+#level sync with survey
+total[is.na(total[,'DOUBLE_IN'])==TRUE,'DOUBLE_IN'] <-3
+total[is.na(total[,'NUMCHILD'])==TRUE,'NUMCHILD'] <-4
+total[(is.na(total[,'MARRY_Y'])==TRUE) & (total[,'DOUBLE_IN']==3),'MARRY_Y'] <-1
+total[(is.na(total[,'MARRY_Y'])==TRUE) & (total[,'DOUBLE_IN']!=3),'MARRY_Y'] <-2
 
-write.csv(data2, file="./data2.csv", row.names=FALSE)
-
-#(제출용 테이블) 행의 개수는 유지, factor변수(MARRY_Y)의 level을 data2와 동기화 시킴. 
-#copy는 분석을 위해 개인정보들을 약간 수정한 테이블이므로
-#분석이 끝나고 다 채워진 20여개 금융정보들은 기존에 있는 제출용 데이터와 MERGE시켜야 함.
-#NULL값 대체정보.txt참고
-copy <- read.csv("./1_DataSet.csv")
-copy[is.na(copy[,'DOUBLE_IN'])==TRUE, 'DOUBLE_IN'] <- 3
-copy[is.na(copy[,'NUMCHILD'])==TRUE, 'NUMCHILD'] <- 4
-copy[(is.na(copy[,'MARRY_Y'])==TRUE) & (copy[,'DOUBLE_IN']==3), 'MARRY_Y'] <- 1
-copy[(is.na(copy[,'MARRY_Y'])==TRUE) & (copy[,'DOUBLE_IN']!=3), 'MARRY_Y'] <- 2
-
-write.csv(copy, "./copy.csv", row.names = FALSE)
+#save
+write.csv(total,file="total2.csv",row.names = FALSE)
