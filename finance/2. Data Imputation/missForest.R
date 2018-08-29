@@ -9,6 +9,7 @@
 missForest.R
 
 ############ missForest ############
+rm(list=ls())
 
 library(missForest)
 survey2 <- read.csv("./survey2.csv")
@@ -29,4 +30,3 @@ survey_imp <- survey2.missforest$ximp
 write.csv(survey_imp, "survey_imp.csv", row.names=FALSE)
 
 data <- read.csv("missForest_imp_data.csv")
-View(data)
