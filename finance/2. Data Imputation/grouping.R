@@ -2,8 +2,11 @@
 ###### 기존의 설문조사결과 결과 그룹화 
 ###설문조사결과(1만개)를 기본정보(8개 열)로 그룹화 하여 금융정보(25개 열) 평균 계산
 ###설문조사결과(1만개) 그룹화한 것을 제출용파일(14만개)에 병합(조인)
+rm(list=ls())
+
 library(plyr)
 library(dplyr)
+
 survey_imp <- read.csv("survey_imp.csv")
 total2 <- read.csv("total2.csv")
 
