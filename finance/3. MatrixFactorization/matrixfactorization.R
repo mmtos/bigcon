@@ -46,5 +46,10 @@ customerinfo<-total[1:9]
 financeinfo<-dcast(pred_df,x~y,fill=0)[-1]
 total_full<-cbind(customerinfo,financeinfo)
 
+#change column names
+origin <- read.csv("total.csv")
+colnames(total_full) <- colnames(origin)
+colnames(total_full)
+
 summary(total_full)
 write.csv(total_full,file="total_full.csv",row.names = FALSE)
