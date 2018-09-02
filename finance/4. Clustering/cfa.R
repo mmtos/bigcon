@@ -15,7 +15,7 @@ total_full2 <- total_full2 %>% mutate(TOT_RT_INVEST = (TOT_FUND + TOT_ELS_ETE)/A
 
 write.csv(total_full2, "./total_full2.csv", row.names=FALSE)
 
-################### Factor Analysis ###################
+############ Factor Analysis ############
 rm(list=ls())
 
 library(psych)
@@ -24,7 +24,7 @@ library(GPArotation)
 total_full <- read.csv("./total_full2.csv")
 
 total_cor <- round(total_full[,-c(1:9)], 2) #기본정보 제외
-(cor(total_cor)>=0.8 | cor(total_cor)<=-0.8) & cor(total_cor)!=1 #check strong correlation(up to 0.8) #상관관계 확인
+(cor(total_cor)>=0.8 | cor(total_cor)<=-0.8) & cor(total_cor)!=1 #check strong correlation(up to 0.8)
 
 total_factor <- total_full[,-c(1:9,10:11,12,14,16:18,20,22,26:28,35)]
 
@@ -33,10 +33,13 @@ total_factor <- total_full[,-c(1:9,10:11,12,14,16:18,20,22,26:28,35)]
 fa.parallel(total_factor, fm='wls', fa='fa')
 # Parallel analysis suggests that the number of factors = 6
 
-### Factor Analysis
+#Factor Analysis
 fit.fa <- fa(total_factor, nfactors=6, rotate="oblimin", fm="wls")
 print(fit.fa) #RMSR:0.01, TLI:0.932, RMSEA:0.085
 print(fit.fa$loadings, cutoff=0.4, sort=T) #요인적재량(변수와 요인간의 관계 정도)>0.4 :유의(보수적)
 fa.diagram(fit.fa)
 
-write.csv(total_factor, "./total_factor.csv", row.names=FALSE)
+
+#make total_factor including clients informaiton
+total_factor2 <- total_full[,-c(10:11,12,14,16:18,20,22,26:28,35)]
+write.csv(total_factor2, "./total_factor.csv", row.names=FALSE)
