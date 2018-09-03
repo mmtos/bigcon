@@ -167,7 +167,7 @@ xgcls <- function(dependant){
   print(model$best_score)
   
   #fill total table
-  X_total < -total[feature]
+  X_total <- total[feature]
   pred_y_total <- predict(model, as.matrix(X_total))
   total[dependant] <<- pred_y_total
   feature <<- c(feature, dependant)
