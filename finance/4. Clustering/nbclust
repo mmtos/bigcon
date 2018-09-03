@@ -7,7 +7,7 @@ total_factor$MARRY_Y[is.na(total_factor$MARRY_Y)==TRUE]<-0
 
 ## 1st group
 group11 <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==2 & total_factor$MARRY_Y==1,] # 3개의 군집
-group11 <- group11[,9:15]
+group11 <- group11[,10:15]
 
 ## 군집분석을 위한 정규화
 total_scale <- scale(group11)
