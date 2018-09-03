@@ -189,5 +189,4 @@ total_full <- cbind(temp, total2[,c(20:34)])
 origin <- read.csv("./total.csv")
 total_full2 <- cbind(origin[1:9],total_full[10:35])
 
-write.csv(total_full, file="total3.csv", row.names=FALSE) #change all na to specific num for task2
 write.csv(total_full2, file="total_full.csv", row.names=FALSE) #answer of task1
