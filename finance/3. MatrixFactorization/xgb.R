@@ -132,12 +132,6 @@ check('M_CHUNG')
 xgreg('TOT_ELS_ETE')
 check('TOT_ELS_ETE')
 
-xgreg('TOT_ELS_ETE')
-check('TOT_ELS_ETE')
-
-colnames(survey)
-summary(survey['CHUNG_Y'])
-
 xgcls <- function(dependant){
   print('independant variable list : ')
   print(feature)
