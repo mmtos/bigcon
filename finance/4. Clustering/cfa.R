@@ -36,5 +36,10 @@ print(fit.fa) #RMSR:0.01, TLI:0.932, RMSEA:0.085
 print(fit.fa$loadings, cutoff=0.4, sort=T) #요인적재량(변수와 요인간의 관계 정도)>0.4 :유의(보수적)
 fa.diagram(fit.fa)
 
+
+#extract factor
+factor <- as.data.frame(fit.fa$scores)
+total_factor <- cbind(total_full[,1:9], factor)
+
 #make total_factor excluding clients informaiton
 write.csv(total_factor, "./total_factor.csv", row.names=FALSE)
