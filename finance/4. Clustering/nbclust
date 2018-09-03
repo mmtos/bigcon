@@ -1,21 +1,23 @@
 rm(list=ls())
 
-## 군집분석을 위한 정규화
 total_factor <- read.csv('./total_factor.csv')
-total_scale <- scale(total_factor)
+str(total_factor)
+
+total_factor$MARRY_Y[is.na(total_factor$MARRY_Y)==TRUE]<-0
+
+## 1st group
+group11 <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==2 & total_factor$MARRY_Y==1,] # 3개의 군집
+group11 <- group11[,9:15]
+
+## 군집분석을 위한 정규화
+total_scale <- scale(group11)
+head(total_scale)
+str(total_scale)
 total_scale <- as.data.frame(total_scale)
 
-total_scale$MARRY_Y[is.na(total_scale$MARRY_Y)==TRUE]<-0
-
-## grouping 1st group
-
-group1 <- total_scale[total_scale$SEX_GBN==1 & total_scale$AGE_GBN==2 & total_scale$MARRY_Y==1,]
-group1 <- group1[,10:24]
-head(group1)
-
-## 군집개수 정하기
+## nbclust - 군집개수 정하기
 library(NbClust)
-nc <- NbClust(group1, min.nc=3, max.nc=15, method="kmeans")
+nc <- NbClust(total_scale, min.nc=3, max.nc=15, method="kmeans")
 gpar(mfrow=c(1,1))
 barplot(table(nc$Best.n[1,]),
         xlab="Numer of Clusters", ylab="Number of Criteria",
