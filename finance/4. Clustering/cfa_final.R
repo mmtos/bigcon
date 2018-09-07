@@ -24,7 +24,7 @@ total_cor <- round(total_full2[,-c(1:9)], 2) #exclude personal information
 #TOT_ASSET(10), M_TOT_SAVING(14), CHUNG_Y(16), M_FUND_STOCK(17), TOT_DEBT(22)
 
 
-total_factor <- total_full2[,-c(1:9,11,14,24,10,14,16,17,22,26,35,23,27,34)]
+total_factor <- total_full2[,-c(1:9,11,14,24,10,14,16,17,22,26,35,23,27,34,19)]
 
 ### Number of factors
 # show the maximum number of factors
@@ -33,7 +33,7 @@ fa.parallel(total_factor, fm='wls', fa='fa')
 #Factor Analysis
 fit.fa <- fa(total_factor, nfactors=4, rotate="oblimin", fm="wls")
 print(fit.fa) #RMSR: 0.02 , TLI:0.924, RMSEA:0.081
-print(fit.fa$loadings, cutoff=0.3, sort=T) #요인적재량(변수와 요인간의 관계 정도)>0.3 :유의
+print(fit.fa$loadings, cutoff=0.4, sort=T) #요인적재량(변수와 요인간의 관계 정도)>0.3 :유의
 fa.diagram(fit.fa)
 
 
