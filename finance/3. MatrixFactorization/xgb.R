@@ -172,8 +172,10 @@ eval[eval['CHUNG_Y']==1, 'CHUNG_Y'] <-0
 eval[eval['CHUNG_Y']==5, 'CHUNG_Y'] <-1
 
 xgcls('CHUNG_Y')
-summary(total)
-total['M_SAVING.INSUR'] <-NULL
+total[total['CHUNG_Y']<=0.5,'CHUNG_Y'] <-0
+total[total['CHUNG_Y']>=0.5,'CHUNG_Y'] <-5
+
+total['M_SAVING.INSUR']<-NULL
 
 # make total_full
 total2 <- round(total, 2)
