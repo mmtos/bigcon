@@ -31,7 +31,7 @@ write.csv(total_cluster_cbind, './total_cluster_cbind.csv')
 
 ## 군집별로 그룹화하기 위한 for문
 ## 먼저 cluster가 1인 그룹으로 qor_all이라는 그룹을 만들어줌 
-## for문을 돌려서 나온 결과를 계속 겹쳐서 cbind하기 위해 기준 테이블 만들어 줌
+## for문을 돌려서 나온 결과를 계속 겹쳐서 rbind하기 위해 기준 테이블 만들어 줌
 total_cluster_cbind_1<-total_cluster_cbind[total_cluster_cbind$CLUSTER==1,]
 # 각 열의 백분위 구하기
 ASS_FIN<-quantile(total_cluster_cbind_1[,1],seq(0,1,0.01))
