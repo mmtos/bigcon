@@ -248,3 +248,286 @@ total_factor <- cbind(total_full[,1:9], factor)
 #save
 write.csv(total_factor, "./total_factor.csv", row.names=FALSE)
 
+############ Clustering ############
+rm(list=ls())
+
+total_factor <- read.csv('./total_factor.csv')
+
+total_factor$MARRY_Y[is.na(total_factor$MARRY_Y)==TRUE]<-0
+
+#create segment : sex, age, job, marry
+#grouping sex=1:2, age=2:6, job=2:11, marry=0:2
+#group 1-90 : MARRY_Y==0, group1-90
+## group1~5
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==2 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i-1,'.csv'),row.names = FALSE)
+}
+## group6~10
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==3 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+4,'.csv'),row.names = FALSE)
+}
+## group11~15
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==4 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+9,'.csv'),row.names = FALSE)
+}
+## group106~110
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==6 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+14,'.csv'),row.names = FALSE)
+}
+## group111~115
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==7 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+19,'.csv'),row.names = FALSE)
+}
+## group116~120
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==8 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+24,'.csv'),row.names = FALSE)
+}
+## group121~125
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==9 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+29,'.csv'),row.names = FALSE)
+}
+## group126~130
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==10 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+34,'.csv'),row.names = FALSE)
+}
+## group131~135
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==11 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+39,'.csv'),row.names = FALSE)
+}
+## group136~140
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==2 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+44,'.csv'),row.names = FALSE)
+}
+## group141~145
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==3 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+49,'.csv'),row.names = FALSE)
+}
+## group146~150
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==4 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+54,'.csv'),row.names = FALSE)
+}
+## group151~155
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==6 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+59,'.csv'),row.names = FALSE)
+}
+## group156~160
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==7 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+64,'.csv'),row.names = FALSE)
+}
+## group161~165
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==8 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+69,'.csv'),row.names = FALSE)
+}
+## group166~170
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==9 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+74,'.csv'),row.names = FALSE)
+}
+## group171~175
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==10 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+79,'.csv'),row.names = FALSE)
+}
+## group176~180
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==11 & total_factor$MARRY_Y==0,] 
+  write.csv(group, paste0('./group',i+84,'.csv'),row.names = FALSE)
+}
+## grouping sex=1, age=2:6, job=2, marry=1
+## age가 2부터 6까지인 group들을 group1~group5까지의 이름을 가진 csv로 저장
+## group91~95
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==2 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+89,'.csv'),row.names = FALSE)
+}
+## group96~100
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==3 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+94,'.csv'),row.names = FALSE)
+}
+## group101~105
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==4 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+99,'.csv'),row.names = FALSE)
+}
+## group106~110
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==6 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+104,'.csv'),row.names = FALSE)
+}
+## group111~115
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==7 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+109,'.csv'),row.names = FALSE)
+}
+## group116~120
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==8 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+114,'.csv'),row.names = FALSE)
+}
+## group121~125
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==9 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+119,'.csv'),row.names = FALSE)
+}
+## group126~130
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==10 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+124,'.csv'),row.names = FALSE)
+}
+## group131~135
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==11 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+129,'.csv'),row.names = FALSE)
+}
+## group136~140
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==2 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+134,'.csv'),row.names = FALSE)
+}
+## group141~145
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==3 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+139,'.csv'),row.names = FALSE)
+}
+## group146~150
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==4 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+144,'.csv'),row.names = FALSE)
+}
+## group151~155
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==6 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+149,'.csv'),row.names = FALSE)
+}
+## group156~160
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==7 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+154,'.csv'),row.names = FALSE)
+}
+## group161~165
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==8 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+159,'.csv'),row.names = FALSE)
+}
+## group166~170
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==9 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+164,'.csv'),row.names = FALSE)
+}
+## group171~175
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==10 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+169,'.csv'),row.names = FALSE)
+}
+## group176~180
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==11 & total_factor$MARRY_Y==1,] 
+  write.csv(group, paste0('./group',i+174,'.csv'),row.names = FALSE)
+}
+
+## group181~185
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==2 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+179,'.csv'),row.names = FALSE)
+}
+## group186~190
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==3 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+184,'.csv'),row.names = FALSE)
+}
+## group191~195
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==4 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+189,'.csv'),row.names = FALSE)
+}
+## group196~200
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==6 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+194,'.csv'),row.names = FALSE)
+}
+## group201~205
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==7 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+199,'.csv'),row.names = FALSE)
+}
+## group206~210
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==8 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+204,'.csv'),row.names = FALSE)
+}
+## group211~215
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==9 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+209,'.csv'),row.names = FALSE)
+}
+## group216~220
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==10 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+214,'.csv'),row.names = FALSE)
+}
+## group221~225
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==11 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+219,'.csv'),row.names = FALSE)
+}
+## group226~230
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==2 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+224,'.csv'),row.names = FALSE)
+}
+## group231~235
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==3 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+229,'.csv'),row.names = FALSE)
+}
+## group236~240
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==4 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+234,'.csv'),row.names = FALSE)
+}
+## group241~245
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==6 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+239,'.csv'),row.names = FALSE)
+}
+## group246~250
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==7 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+244,'.csv'),row.names = FALSE)
+}
+## group251~255
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==8 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+249,'.csv'),row.names = FALSE)
+}
+## group256~260
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==9 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+254,'.csv'),row.names = FALSE)
+}
+## group261~265
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==10 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+259,'.csv'),row.names = FALSE)
+}
+## group266~270
+for (i in 2:6){
+  group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==11 & total_factor$MARRY_Y==2,] 
+  write.csv(group, paste0('./group',i+264,'.csv'),row.names = FALSE)
+}
