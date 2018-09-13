@@ -16,5 +16,5 @@ factor의 level이 다르면 predict를 할 수 없다(numchild, marry_y)
 
 3. 1만7천개 데이터셋
    CHUNG_Y가 null인 경우 -> TOT_CHUNG을 0으로(청약여부가 무응답이면, 총 청약보유잔액을 0으로 가정)
-   TOT_CHUNG과 TOT_CHUNG이 null인 경우 -> CHUNG_Y을 0으로(청약여부가 무응답이고 총 청약보유잔액이 0이면, 청약을 보유하고 있지 않다고 가정)
+   M_CHUNG과 TOT_CHUNG이 null인 경우 -> CHUNG_Y을 0으로(청약여부가 무응답이고 총 청약보유잔액이 0이면, 청약을 보유하고 있지 않다고 가정)
 
