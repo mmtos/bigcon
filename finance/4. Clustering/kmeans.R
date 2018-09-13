@@ -288,8 +288,7 @@ for (i in 2:6){
 ## 정규화 한 후에 nbclust~~
 ## pb$tick()은 얼만큼 진행되었는지 알려주는 표시
 ## 전부 group화 한후 nbclust 한번에 돌리는 것도 좋을듯
-pb<-progress_bar$new(total=5)
-for (i in 251:270){
+for (i in 1:270){
   group<-read.csv(paste0('./group',i,'.csv'))
   total_scale<-scale(group[,10:13])
   total_scale<-as.data.frame(total_scale)
@@ -325,7 +324,6 @@ nbc <- c(4,4,3,4,4,4,4,4,4,4,
          4,4,3,6,5,4,4,3,4,5,
          3,4,4,4,5,3,4,4,4,3)
 
-sum(nbc[1:3])
 for ( i in 1:270){
   group<-read.csv(paste0('./group',i,'.csv'))
   total_scale<-scale(group)
@@ -404,25 +402,15 @@ for ( i in 1:270){
 
 groupp1<-read.csv('./group1_k.csv')
 groupp2<-read.csv('./group2_k.csv')
-groupp85<-read.csv('./group85_k.csv')
-
-
 group<-rbind(groupp1,groupp2)
 str(group)
 for (i in 3:270){
   aa<-read.csv(paste0('./group',i,'_k.csv'))
   group<-rbind(group,aa)
 }
-table(group$group_k.cluster)
-unique(order(group$group_k.cluster))
-length(unique(group$group_k.cluster))
 group_kmeans<-group[order(group$PEER_NO),]
-head(group_kmeans)
 write.csv(group_kmeans,'./total_cluster.csv',row.names = FALSE)
 
-hohoho<- read.csv('./group26.csv')
-hohoho1<- read.csv('./group146.csv')
-hohoho <- as.data.frame(hohoho)
 total_cluster <- read.csv('./total_cluster.csv')
 colnames(total_cluster)
 peer_group <- total_cluster[,c(1,14)]
