@@ -536,9 +536,9 @@ for (i in 2:6){
 
 ###### Nbclust : determining the best number of clusters in each group loading csv file ######
 for (i in 1:270){
-  group<-read.csv(paste0('./group',i,'.csv'))
-  total_scale<-scale(group[,10:13])
-  total_scale<-as.data.frame(total_scale)
+  group <- read.csv(paste0('./group',i,'.csv'))
+  total_scale <- scale(group[,10:13])
+  total_scale <- as.data.frame(total_scale)
   assign(paste0('nc',i),NbClust(total_scale, min.nc=3, max.nc=10, method="kmeans"))
 }
 
@@ -572,9 +572,9 @@ nbc <- c(4,4,3,4,4,4,4,4,4,4,
          3,4,4,4,5,3,4,4,4,3)
 
 for ( i in 1:270){
-  group<-read.csv(paste0('./group',i,'.csv'))
-  total_scale<-scale(group)
-  total_scale<-as.data.frame(total_scale)
+  group <- read.csv(paste0('./group',i,'.csv'))
+  total_scale <- scale(group)
+  total_scale <- as.data.frame(total_scale)
 
   group_head <- group[,1:9]
   group <- group[,10:13]
@@ -678,19 +678,19 @@ qor_all <- rbind(ASS_FIN,M_TOT_SAVING,TOT_SOBI)
 
 #using for loop from 2nd to 1015th cluster.
 for (i in 2:1015){
-  total_cluster_cbind_n<-total_cluster_cbind[total_cluster_cbind$CLUSTER==i,]
-  ASS_FIN<-quantile(total_cluster_cbind_n[,1],seq(0,1,0.01))
-  M_TOT_SAVING<-quantile(total_cluster_cbind_n[,2],seq(0,1,0.01))
-  TOT_SOBI<-quantile(total_cluster_cbind_n[,3],seq(0,1,0.01))
-  qor<-rbind(ASS_FIN,M_TOT_SAVING,TOT_SOBI)
-  qor_all<-rbind(qor_all,qor)
+  total_cluster_cbind_n <- total_cluster_cbind[total_cluster_cbind$CLUSTER==i,]
+  ASS_FIN <- quantile(total_cluster_cbind_n[,1],seq(0,1,0.01))
+  M_TOT_SAVING <- quantile(total_cluster_cbind_n[,2],seq(0,1,0.01))
+  TOT_SOBI <- quantile(total_cluster_cbind_n[,3],seq(0,1,0.01))
+  qor <- rbind(ASS_FIN,M_TOT_SAVING,TOT_SOBI)
+  qor_all <- rbind(qor_all,qor)
 }
 
-qor_all < -as.data.frame(qor_all)
+qor_all <- as.data.frame(qor_all)
 
 #rename row names for answer sheet
-rownames(qor_all) < -seq(1:3045)
-PEER_GROUP_No < -rep(1:1015,each=3)
+rownames(qor_all) <- seq(1:3045)
+PEER_GROUP_No <- rep(1:1015,each=3)
 COLUMN_NAME <- rep(c('금융자산','월저축금액','월소비금액'),1015)
 qor_all <- cbind(PEER_GROUP_No,COLUMN_NAME,qor_all)
 
