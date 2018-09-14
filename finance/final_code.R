@@ -202,7 +202,7 @@ total_full2 <- cbind(origin[1:9],total_full[10:35])
 
 write.csv(total_full2, file="total_full.csv", row.names=FALSE) #answer of task1
 
-###################################################
+################################################### end of task1 : create full dataset
 ############ mutate variables ############ 
 rm(list=ls())
 
@@ -255,9 +255,10 @@ total_factor <- read.csv('./total_factor.csv')
 
 total_factor$MARRY_Y[is.na(total_factor$MARRY_Y)==TRUE]<-0
 
-#create segment : sex, age, job, marry
+###### Grouping ######
+#create segments : sex, age, job, marry
 #grouping sex=1:2, age=2:6, job=2:11, marry=0:2
-#group 1-90 : MARRY_Y==0, group1-90
+#group 1-90 : grouping by MARRY_Y==0
 ## group1~5
 for (i in 2:6){
   group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==2 & total_factor$MARRY_Y==0,] 
@@ -348,8 +349,8 @@ for (i in 2:6){
   group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==11 & total_factor$MARRY_Y==0,] 
   write.csv(group, paste0('./group',i+84,'.csv'),row.names = FALSE)
 }
-## grouping sex=1, age=2:6, job=2, marry=1
-## age가 2부터 6까지인 group들을 group1~group5까지의 이름을 가진 csv로 저장
+ 
+#group 91-180 : grouping by MARRY_Y==1
 ## group91~95
 for (i in 2:6){
   group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==2 & total_factor$MARRY_Y==1,] 
@@ -441,6 +442,7 @@ for (i in 2:6){
   write.csv(group, paste0('./group',i+174,'.csv'),row.names = FALSE)
 }
 
+#group 181-270 : grouping by MARRY_Y==2
 ## group181~185
 for (i in 2:6){
   group <- total_factor[total_factor$SEX_GBN==1 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==2 & total_factor$MARRY_Y==2,] 
@@ -531,3 +533,164 @@ for (i in 2:6){
   group <- total_factor[total_factor$SEX_GBN==2 & total_factor$AGE_GBN==i & total_factor$JOB_GBN==11 & total_factor$MARRY_Y==2,] 
   write.csv(group, paste0('./group',i+264,'.csv'),row.names = FALSE)
 }
+
+###### Nbclust : determining the best number of clusters in each group loading csv file ######
+for (i in 1:270){
+  group<-read.csv(paste0('./group',i,'.csv'))
+  total_scale<-scale(group[,10:13])
+  total_scale<-as.data.frame(total_scale)
+  assign(paste0('nc',i),NbClust(total_scale, min.nc=3, max.nc=10, method="kmeans"))
+}
+
+###### Kmeans ######
+nbc <- c(4,4,3,4,4,4,4,4,4,4,
+         4,3,4,4,9,4,4,4,4,3,
+         4,4,3,4,3,3,4,3,3,3,
+         3,4,8,4,3,3,3,3,4,4,
+         3,3,3,3,3,4,3,4,4,4,
+         4,3,3,4,3,4,4,4,4,3,
+         4,4,3,4,3,4,4,3,3,3,
+         4,4,4,6,7,5,4,3,3,5,
+         3,4,4,4,5,3,4,4,4,3,
+         4,3,4,3,3,4,3,3,9,3,
+         4,4,3,4,3,4,4,3,4,3,
+         3,4,4,5,6,3,4,7,4,3,
+         3,4,3,4,4,3,4,3,4,3,
+         3,3,7,4,3,4,3,4,4,3,
+         4,3,3,4,4,4,4,4,4,3,
+         3,4,3,4,3,3,4,4,4,3,
+         3,3,3,4,3,4,4,3,4,3,
+         3,3,3,4,4,4,3,3,4,4,
+         4,4,4,3,4,4,4,3,4,4,
+         4,4,4,4,4,4,4,4,4,4,
+         4,4,3,3,7,3,4,3,3,3,
+         4,3,3,3,4,3,3,3,4,4,
+         3,3,3,3,3,4,3,4,3,4,
+         4,4,4,4,4,4,4,4,4,4,
+         4,4,4,4,4,4,4,3,3,4,
+         4,4,3,6,5,4,4,3,4,5,
+         3,4,4,4,5,3,4,4,4,3)
+
+for ( i in 1:270){
+  group<-read.csv(paste0('./group',i,'.csv'))
+  total_scale<-scale(group)
+  total_scale<-as.data.frame(total_scale)
+
+  group_head <- group[,1:9]
+  group <- group[,10:13]
+  
+  #scaling for clustering
+  total_scale <- scale(group)
+  total_scale <- as.data.frame(total_scale)
+  #kmeans 
+  group_k <- kmeans(group,nbc[i])
+  group <- cbind(group_head,group,group_k$cluster)
+  
+  if (i >= 2){
+    if(nbc[i]==3){
+      group$`group_k$cluster`[group$`group_k$cluster`==1]<-sum(nbc[1:(i-1)])+1
+      group$`group_k$cluster`[group$`group_k$cluster`==2]<-sum(nbc[1:(i-1)])+2
+      group$`group_k$cluster`[group$`group_k$cluster`==3]<-sum(nbc[1:(i-1)])+3
+    }else if(nbc[i]==4){
+      group$`group_k$cluster`[group$`group_k$cluster`==1]<-sum(nbc[1:(i-1)])+1
+      group$`group_k$cluster`[group$`group_k$cluster`==2]<-sum(nbc[1:(i-1)])+2
+      group$`group_k$cluster`[group$`group_k$cluster`==3]<-sum(nbc[1:(i-1)])+3
+      group$`group_k$cluster`[group$`group_k$cluster`==4]<-sum(nbc[1:(i-1)])+4
+    }else if(nbc[i]==5){
+      group$`group_k$cluster`[group$`group_k$cluster`==1]<-sum(nbc[1:(i-1)])+1
+      group$`group_k$cluster`[group$`group_k$cluster`==2]<-sum(nbc[1:(i-1)])+2
+      group$`group_k$cluster`[group$`group_k$cluster`==3]<-sum(nbc[1:(i-1)])+3
+      group$`group_k$cluster`[group$`group_k$cluster`==4]<-sum(nbc[1:(i-1)])+4
+      group$`group_k$cluster`[group$`group_k$cluster`==5]<-sum(nbc[1:(i-1)])+5
+    }else if(nbc[i]==6){
+      group$`group_k$cluster`[group$`group_k$cluster`==1]<-sum(nbc[1:(i-1)])+1
+      group$`group_k$cluster`[group$`group_k$cluster`==2]<-sum(nbc[1:(i-1)])+2
+      group$`group_k$cluster`[group$`group_k$cluster`==3]<-sum(nbc[1:(i-1)])+3
+      group$`group_k$cluster`[group$`group_k$cluster`==4]<-sum(nbc[1:(i-1)])+4
+      group$`group_k$cluster`[group$`group_k$cluster`==5]<-sum(nbc[1:(i-1)])+5
+      group$`group_k$cluster`[group$`group_k$cluster`==6]<-sum(nbc[1:(i-1)])+6
+    }else if(nbc[i]==7){
+      group$`group_k$cluster`[group$`group_k$cluster`==1]<-sum(nbc[1:(i-1)])+1
+      group$`group_k$cluster`[group$`group_k$cluster`==2]<-sum(nbc[1:(i-1)])+2
+      group$`group_k$cluster`[group$`group_k$cluster`==3]<-sum(nbc[1:(i-1)])+3
+      group$`group_k$cluster`[group$`group_k$cluster`==4]<-sum(nbc[1:(i-1)])+4
+      group$`group_k$cluster`[group$`group_k$cluster`==5]<-sum(nbc[1:(i-1)])+5
+      group$`group_k$cluster`[group$`group_k$cluster`==6]<-sum(nbc[1:(i-1)])+6
+      group$`group_k$cluster`[group$`group_k$cluster`==7]<-sum(nbc[1:(i-1)])+7
+    }else if(nbc[i]==8){
+      group$`group_k$cluster`[group$`group_k$cluster`==1]<-sum(nbc[1:(i-1)])+1
+      group$`group_k$cluster`[group$`group_k$cluster`==2]<-sum(nbc[1:(i-1)])+2
+      group$`group_k$cluster`[group$`group_k$cluster`==3]<-sum(nbc[1:(i-1)])+3
+      group$`group_k$cluster`[group$`group_k$cluster`==4]<-sum(nbc[1:(i-1)])+4
+      group$`group_k$cluster`[group$`group_k$cluster`==5]<-sum(nbc[1:(i-1)])+5
+      group$`group_k$cluster`[group$`group_k$cluster`==6]<-sum(nbc[1:(i-1)])+6
+      group$`group_k$cluster`[group$`group_k$cluster`==7]<-sum(nbc[1:(i-1)])+7
+      group$`group_k$cluster`[group$`group_k$cluster`==8]<-sum(nbc[1:(i-1)])+8
+    }else if(nbc[i]==9){
+      group$`group_k$cluster`[group$`group_k$cluster`==1]<-sum(nbc[1:(i-1)])+1
+      group$`group_k$cluster`[group$`group_k$cluster`==2]<-sum(nbc[1:(i-1)])+2
+      group$`group_k$cluster`[group$`group_k$cluster`==3]<-sum(nbc[1:(i-1)])+3
+      group$`group_k$cluster`[group$`group_k$cluster`==4]<-sum(nbc[1:(i-1)])+4
+      group$`group_k$cluster`[group$`group_k$cluster`==5]<-sum(nbc[1:(i-1)])+5
+      group$`group_k$cluster`[group$`group_k$cluster`==6]<-sum(nbc[1:(i-1)])+6
+      group$`group_k$cluster`[group$`group_k$cluster`==7]<-sum(nbc[1:(i-1)])+7
+      group$`group_k$cluster`[group$`group_k$cluster`==8]<-sum(nbc[1:(i-1)])+8
+      group$`group_k$cluster`[group$`group_k$cluster`==9]<-sum(nbc[1:(i-1)])+9
+    }
+  }
+  write.csv(group,paste0('./group',i,'_k.csv'),row.names = FALSE)
+}
+
+for (i in 3:270){
+  aa <- read.csv(paste0('./group',i,'_k.csv'))
+  group <- rbind(group,aa)
+}
+group_kmeans <- group[order(group$PEER_NO),]
+write.csv(group_kmeans,'./total_cluster.csv',row.names = FALSE)
+
+total_cluster <- read.csv('./total_cluster.csv')
+peer_group <- total_cluster[,c(1,14)] #including only peer no. and cluster no.
+write.csv(peer_group,'./peer_group.csv',row.names = FALSE) #answer of task2
+
+################################################### end of task2 : mapping from customer type to peer group
+############ Percentile ############
+#cbind financial info and cluster no.
+total_cluster <- read.csv('./total_cluster.csv')
+total_full <- read.csv('./total_full.csv')
+
+total_cluster_cbind <- cbind(total_full,total_cluster$group_k.cluster)
+
+#including only "ASS_FIN","M_TOT_SAVING","TOT_SOBI","CLUSTER"
+total_cluster_cbind <- total_cluster_cbind[,c(11,14,34,36)]
+colnames(total_cluster_cbind) <- c("ASS_FIN","M_TOT_SAVING","TOT_SOBI","CLUSTER")
+
+#grouping by cluster no.
+#firstly, create qor_all group which cluster no. is 1 : the main table for adding the results which can get "for loop"
+total_cluster_cbind_1 <- total_cluster_cbind[total_cluster_cbind$CLUSTER==1,]  
+#percentiles for each column
+ASS_FIN <- quantile(total_cluster_cbind_1[,1],seq(0,1,0.01))
+M_TOT_SAVING <- quantile(total_cluster_cbind_n[,2],seq(0,1,0.01))
+TOT_SOBI < -quantile(total_cluster_cbind_n[,3],seq(0,1,0.01))
+#rbind and save data in "qor_all" variable
+qor_all <- rbind(ASS_FIN,M_TOT_SAVING,TOT_SOBI)
+
+#using for loop from 2nd to 1015th cluster.
+for (i in 2:1015){
+  total_cluster_cbind_n<-total_cluster_cbind[total_cluster_cbind$CLUSTER==i,]
+  ASS_FIN<-quantile(total_cluster_cbind_n[,1],seq(0,1,0.01))
+  M_TOT_SAVING<-quantile(total_cluster_cbind_n[,2],seq(0,1,0.01))
+  TOT_SOBI<-quantile(total_cluster_cbind_n[,3],seq(0,1,0.01))
+  qor<-rbind(ASS_FIN,M_TOT_SAVING,TOT_SOBI)
+  qor_all<-rbind(qor_all,qor)
+}
+
+qor_all < -as.data.frame(qor_all)
+
+#rename row names for answer sheet
+rownames(qor_all) < -seq(1:3045)
+PEER_GROUP_No < -rep(1:1015,each=3)
+COLUMN_NAME <- rep(c('금융자산','월저축금액','월소비금액'),1015)
+qor_all <- cbind(PEER_GROUP_No,COLUMN_NAME,qor_all)
+
+write.csv(qor_all,'./total_pecentile.csv',row.names = FALSE) #answer of task3
+################################################### end of task3 : amount distribution by peer group
