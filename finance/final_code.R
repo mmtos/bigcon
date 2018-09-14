@@ -654,6 +654,8 @@ write.csv(peer_group,'./peer_group.csv',row.names = FALSE) #answer of task2
 
 ################################################### end of task2 : mapping from customer type to peer group
 ############ Percentile ############
+rm(list=ls())
+    
 #cbind financial info and cluster no.
 total_cluster <- read.csv('./total_cluster.csv')
 total_full <- read.csv('./total_full.csv')
