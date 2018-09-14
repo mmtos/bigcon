@@ -1,0 +1,111 @@
+:.
+¦¢  ada.pickle
+¦¢  bag_rf.pickle
+¦¢  fold_structure.txt
+¦¢  important.csv
+¦¢  lgb.pickle
+¦¢  lgb_pca6.pickle
+¦¢  ReadMe.txt
+¦¢  rf.pickle
+¦¢  xgb3.pickle
+¦¢  
+¦§¦¡group
+¦¢      act12_agg.csv
+¦¢      act34_agg.csv
+¦¢      act56_agg.csv
+¦¢      act78_agg.csv
+¦¢      act_agg.csv
+¦¢      act_by_oneweek.csv
+¦¢      grouped1.csv
+¦¢      grouped10.csv
+¦¢      grouped11.csv
+¦¢      grouped12.csv
+¦¢      grouped2.csv
+¦¢      grouped3.csv
+¦¢      grouped4.csv
+¦¢      grouped5.csv
+¦¢      grouped6.csv
+¦¢      grouped7.csv
+¦¢      grouped8.csv
+¦¢      grouped9.csv
+¦¢      guild_agg.csv
+¦¢      party_agg.csv
+¦¢      payment_agg.csv
+¦¢      trade_agg.csv
+¦¢      trade_agg2.csv
+¦¢      
+¦§¦¡SourceCode
+¦¢      1-1. use_tsfresh.py
+¦¢      1-2. make_total_data.py
+¦¢      2. toPCA.py
+¦¢      3. adaboost_last.py
+¦¢      3. Kfold_last.py
+¦¢      3. lightGBM2_last.py
+¦¢      3. lightGBM_last.py
+¦¢      3. RF_last.py
+¦¢      3. xgboost_last.py
+¦¢      4. softvoting.py
+¦¢      grid.py
+¦¢      
+¦§¦¡submission
+¦¢      kfoldlabel.csv
+¦¢      kfoldoofproba.csv
+¦¢      kfoldproba.csv
+¦¢      pred_test_ada.csv
+¦¢      pred_test_kfold.csv
+¦¢      pred_test_lgb.csv
+¦¢      pred_test_lgb2.csv
+¦¢      pred_test_paste_rf.csv
+¦¢      pred_test_xgb.csv
+¦¢      pred_valid_ada.csv
+¦¢      pred_valid_kfold.csv
+¦¢      pred_valid_lgb.csv
+¦¢      pred_valid_lgb2.csv
+¦¢      pred_valid_paste_rf.csv
+¦¢      pred_valid_xgb.csv
+¦¢      softvoting_pred.csv
+¦¢      
+¦§¦¡test
+¦¢      test_activity.csv
+¦¢      test_guild.csv
+¦¢      test_id.csv
+¦¢      test_party.csv
+¦¢      test_payment.csv
+¦¢      test_trade.csv
+¦¢      
+¦§¦¡total
+¦¢      test0910_pca.csv
+¦¢      testset.csv
+¦¢      testset0910.csv
+¦¢      train0910_pca.csv
+¦¢      trainset.csv
+¦¢      trainset0910.csv
+¦¢      
+¦§¦¡train
+¦¢      train_activity.csv
+¦¢      train_guild.csv
+¦¢      train_label.csv
+¦¢      train_party.csv
+¦¢      train_payment.csv
+¦¢      train_trade.csv
+¦¢      
+¦§¦¡tsfresh
+¦¢      ef_source.csv
+¦¢      ef_source_test.csv
+¦¢      ef_target.csv
+¦¢      ef_target_test.csv
+¦¢      extract_source_test.csv
+¦¢      extract_source_train.csv
+¦¢      extract_target_test.csv
+¦¢      extract_target_train.csv
+¦¢      trade_ts_for_test.csv
+¦¢      trade_ts_for_test_source.csv
+¦¢      trade_ts_for_test_target.csv
+¦¢      trade_ts_for_train.csv
+¦¢      trade_ts_for_train_source.csv
+¦¢      trade_ts_for_train_target.csv
+¦¢      
+¦¦¦¡__pycache__
+        tsfresh.cpython-36.pyc
+        xgboost.cpython-36.pyc
+        
